@@ -37,4 +37,4 @@ const intervalID = setInterval(() => {
   } else {
     clearInterval(intervalID); // Stop after sending 4 quotes
   }
-}, 5000);
+}, interval);
