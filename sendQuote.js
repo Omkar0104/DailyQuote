@@ -31,10 +31,10 @@ const interval = 6 * 60 * 60 * 1000; // 6 hours in milliseconds
 let count = 0;
 
 const intervalID = setInterval(() => {
-  if (count < 4) {
+  if (count < 1) {
     sendRandomQuote();
     count++;
   } else {
     clearInterval(intervalID); // Stop after sending 4 quotes
   }
-}, interval);
+}, 5000);
