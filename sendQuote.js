@@ -27,11 +27,11 @@ const sendRandomQuote = () => {
 };
 
 // Send 4 quotes at equal intervals (every 6 hours)
-const interval = 6 * 60 * 60 * 1000; // 6 hours in milliseconds
+const interval = 2*60 * 60 * 1000; // 6 hours in milliseconds
 let count = 0;
 
 const intervalID = setInterval(() => {
-  if (count < 1) {
+  if (count < 30) {
     sendRandomQuote();
     count++;
   } else {
