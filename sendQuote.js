@@ -43,7 +43,7 @@ const sendRandomQuote = () => {
   }
 
   const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-  const message = `🌟 *Quote of the Moment* 🌟\n\n"${randomQuote.quote}"\n💡 *Lesson:* ${randomQuote.lesson}`;
+  const message = `🌟 *Quote of the Moment* 🌟\n\n"${randomQuote.quote}"\n\n💡 *Lesson:* ${randomQuote.lesson}`;
 
   console.log("Sending quote via Twilio...");
   console.log("From:", process.env.TWILIO_WHATSAPP_NUMBER);
@@ -60,7 +60,7 @@ const sendRandomQuote = () => {
 };
 
 // Send 4 quotes at equal intervals (every 3 hours)
-const interval =  3* 60 *60 * 1000; // 3 hours in milliseconds
+const interval =  3 * 60 * 60 * 1000; // 3 hours in milliseconds
 let count = 0;
 console.log("Starting the interval for sending quotes...");
 
