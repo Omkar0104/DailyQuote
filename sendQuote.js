@@ -59,18 +59,12 @@ const sendRandomQuote = () => {
     .catch((error) => console.error("❌ Error sending message:", error));
 };
 
-// Send 4 quotes at equal intervals (every 3 hours)
-const interval =  3 * 60 * 60 * 1000; // 3 hours in milliseconds
-let count = 0;
+
+const interval = 3 * 60 * 60 * 1000; // 3 hours in milliseconds
+
 console.log("Starting the interval for sending quotes...");
 
-const intervalID = setInterval(() => {
-  console.log(`Sending quote #${count + 1}...`);
-  if (count < 4) {
-    sendRandomQuote();
-    count++;
-  } else {
-    console.log("✅ Sent 4 quotes, stopping interval.");
-    clearInterval(intervalID);
-  }
+setInterval(() => {
+  console.log("Sending a new quote...");
+  sendRandomQuote(); // Call the function to send the quote
 }, interval);
