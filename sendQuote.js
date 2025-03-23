@@ -34,7 +34,9 @@ try {
   console.error("❌ Error loading quotes.json:", error);
 }
 
-// Function to send a random quote
+let lastQuoteIndex = -1; // Store last sent quote index
+
+// Function to send a random, non-repeating quote
 const sendRandomQuote = () => {
   console.log("Selecting a random quote...");
   if (quotes.length === 0) {
@@ -42,7 +44,14 @@ const sendRandomQuote = () => {
     return;
   }
 
-  const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+  let newIndex;
+  do {
+    newIndex = Math.floor(Math.random() * quotes.length);
+  } while (newIndex === lastQuoteIndex && quotes.length > 1); // Ensure it's different from last sent
+
+  lastQuoteIndex = newIndex;
+  const randomQuote = quotes[newIndex];
+  
   const message = `🌟 *Quote of the Moment* 🌟\n\n"${randomQuote.quote}"\n\n💡 *Lesson:* ${randomQuote.lesson}`;
 
   console.log("Sending quote via Twilio...");
@@ -59,12 +68,11 @@ const sendRandomQuote = () => {
     .catch((error) => console.error("❌ Error sending message:", error));
 };
 
-
+// Start the interval to send quotes every 3 hours
 const interval = 3 * 60 * 60 * 1000; // 3 hours in milliseconds
-
 console.log("Starting the interval for sending quotes...");
 
 setInterval(() => {
   console.log("Sending a new quote...");
-  sendRandomQuote(); // Call the function to send the quote
+  sendRandomQuote();
 }, interval);
