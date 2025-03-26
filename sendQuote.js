@@ -2,28 +2,12 @@ require("dotenv").config();
 const fs = require("fs");
 const twilio = require("twilio");
 
-console.log("Starting the Twilio Quote Sender script...");
-
-// ✅ Log environment variables
-console.log("TWILIO_ACCOUNT_SID:", process.env.TWILIO_ACCOUNT_SID || "❌ MISSING");
-console.log("TWILIO_AUTH_TOKEN:", process.env.TWILIO_AUTH_TOKEN ? "✅ LOADED" : "❌ MISSING");
-console.log("TWILIO_WHATSAPP_NUMBER:", process.env.TWILIO_WHATSAPP_NUMBER || "❌ MISSING");
-console.log("MY_WHATSAPP_NUMBER:", process.env.MY_WHATSAPP_NUMBER || "❌ MISSING");
-
-// ❌ Exit if missing credentials
-if (!process.env.TWILIO_ACCOUNT_SID || !process.env.TWILIO_AUTH_TOKEN || !process.env.TWILIO_WHATSAPP_NUMBER || !process.env.MY_WHATSAPP_NUMBER) {
-  console.error("❌ ERROR: Missing required environment variables. Check your .env file.");
-  process.exit(1);
-}
-
 // Load Twilio client
 const client = new twilio(
   process.env.TWILIO_ACCOUNT_SID,
   process.env.TWILIO_AUTH_TOKEN
 );
 
-// Load quotes
-console.log("Loading quotes from quotes.json...");
 let quotes = [];
 try {
   const data = fs.readFileSync("quotes.json", "utf8");
@@ -74,10 +58,6 @@ const sendRandomQuote = () => {
 
   const message = `🌟 *Quote of the Moment* 🌟\n\n"${randomQuote.quote}"\n\n💡 *Lesson:* ${randomQuote.lesson}`;
 
-  console.log("Sending quote via Twilio...");
-  console.log("From:", process.env.TWILIO_WHATSAPP_NUMBER);
-  console.log("To:", process.env.MY_WHATSAPP_NUMBER);
-
   client.messages
     .create({
       from: process.env.TWILIO_WHATSAPP_NUMBER,
@@ -95,7 +75,7 @@ const sendRandomQuote = () => {
 };
 
 // Start sending quotes every 3 hours
-const interval = 3 * 60 * 60 * 1000; // 3 hours in milliseconds
+const interval = 2*60*60 * 1000; // 3 hours in milliseconds
 console.log("Starting the interval for sending quotes...");
 
 setInterval(() => {
